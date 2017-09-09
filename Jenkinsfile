@@ -27,8 +27,8 @@ pipeline {
         parallel(
           "Package": {
             sleep 40
-            sh 'echo "Packaging finished"'
-            sh 'echo "Pushing to S3"'
+            sh '''echo $(date) > gigantic_binary.txt
+echo "Packaging finished"'''
             
           },
           "Security Tests": {
@@ -47,6 +47,11 @@ pipeline {
             
           }
         )
+      }
+    }
+    stage('Push to S3') {
+      steps {
+        sh 'echo "Pushing ${gitCommit} to S3" '
       }
     }
   }
