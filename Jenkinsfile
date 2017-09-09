@@ -12,6 +12,7 @@ pipeline {
           "Package": {
             sleep 40
             sh 'echo "Packaging finished"'
+            sh 'echo "Pushing to S3"'
             
           },
           "Security Tests": {
