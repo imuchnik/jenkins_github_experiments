@@ -23,6 +23,11 @@ pipeline {
             sleep 10
             sh 'echo "Unit Tests Finished"'
             
+          },
+          "Goodbye": {
+            sleep 41
+            sh 'echo "Goodbye"'
+            
           }
         )
       }
