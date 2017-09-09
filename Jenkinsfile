@@ -3,7 +3,22 @@ pipeline {
   stages {
     stage('hello') {
       steps {
-        echo 'Hello World'
+        parallel(
+          "hello": {
+            echo 'Hello World'
+            
+          },
+          "Git commit": {
+            script {
+              gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+              // short SHA, possibly better for chat notifications, etc.
+              shortCommit = gitCommit.take(6)
+              println shortCommit
+            }
+            
+            
+          }
+        )
       }
     }
     stage('Package') {
