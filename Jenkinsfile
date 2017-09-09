@@ -51,7 +51,19 @@ echo "Packaging finished"'''
     }
     stage('Push to S3') {
       steps {
-        sh 'echo "Pushing ${gitCommit} to S3" '
+        parallel(
+          "Push to S3": {
+            sh 'echo "Pushing ${gitCommit} to S3" '
+            
+          },
+          "Push to S3 Groovy": {
+            script {
+              println "Pushing ${gitCommit} to S3"
+            }
+            
+            
+          }
+        )
       }
     }
   }
