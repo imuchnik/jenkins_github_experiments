@@ -26,23 +26,23 @@ pipeline {
       steps {
         parallel(
           "Package": {
-            sleep 40
+            sleep 3
             sh '''echo $(date) > gigantic_binary.txt
 echo "Packaging finished"'''
             
           },
           "Security Tests": {
-            sleep 30
+            sleep 2
             sh 'echo "Security Tests Finished"'
             
           },
           "Unit Tests": {
-            sleep 10
+            sleep 1
             sh 'echo "Unit Tests Finished"'
             
           },
           "Goodbye": {
-            sleep 41
+            sleep 4
             sh 'echo "Goodbye"'
             
           }
