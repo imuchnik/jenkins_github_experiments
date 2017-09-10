@@ -28,7 +28,8 @@ pipeline {
         parallel(
           "Package": {
             sleep 3
-            sh '''echo $(date) > gigantic_binary.txt
+            sh '''echo ${env.GIT_COMMIT}
+echo $(date) > gigantic_binary.txt
 echo "Packaging finished"'''
             archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true, onlyIfSuccessful: true)
             
