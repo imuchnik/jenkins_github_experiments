@@ -15,6 +15,7 @@ pipeline {
               shortCommit = gitCommit.take(6)
               println gitCommit
               println shortCommit
+              env.GIT_COMMIT = gitCommit
             }
             
             
