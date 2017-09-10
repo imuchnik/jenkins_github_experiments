@@ -29,7 +29,7 @@ pipeline {
             sleep 3
             sh '''echo $(date) > gigantic_binary.txt
 echo "Packaging finished"'''
-            archiveArtifacts 'gigantic*.*'
+            archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true)
             
           },
           "Security Tests": {
