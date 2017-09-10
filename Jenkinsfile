@@ -22,10 +22,10 @@ pipeline {
         )
       }
     }
-    stage('Package') {
+    stage('Test and Package') {
       steps {
         parallel(
-          "Test and Package": {
+          "Package": {
             sleep 3
             sh '''echo $(date) > gigantic_binary.txt
 echo "Packaging finished"'''
