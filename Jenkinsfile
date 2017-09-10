@@ -40,11 +40,6 @@ echo "Packaging finished"'''
             sleep 1
             sh 'echo "Unit Tests Finished"'
             
-          },
-          "Goodbye": {
-            sleep 4
-            sh 'echo "Goodbye"'
-            
           }
         )
       }
