@@ -51,7 +51,7 @@ echo "Packaging finished"'''
       steps {
         parallel(
           "Push to S3": {
-            sh 'echo "Pushing ${gitCommit} to S3" '
+            sh 'echo "Pushing git commit to S3" '
             
           },
           "Push to S3 Groovy": {
