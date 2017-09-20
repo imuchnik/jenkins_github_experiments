@@ -3,30 +3,62 @@ pipeline {
   stages {
     stage('hello') {
       steps {
-        echo 'Hello World'
+        parallel(
+          "hello": {
+            echo 'Hello World'
+            
+          },
+          "Git commit": {
+            script {
+              gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+              // short SHA, possibly better for chat notifications, etc.
+              shortCommit = gitCommit.take(6)
+              println gitCommit
+              println shortCommit
+              env.GIT_COMMIT = gitCommit
+            }
+            
+            
+          }
+        )
       }
     }
-    stage('Package') {
+    stage('Test and Package') {
       steps {
         parallel(
           "Package": {
-            sleep 40
-            sh 'echo "Packaging finished"'
+            sleep 3
+            sh '''echo ${env.GIT_COMMIT}
+echo $(date) > gigantic_binary.txt
+echo "Packaging finished"'''
+            archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true, onlyIfSuccessful: true)
             
           },
           "Security Tests": {
-            sleep 30
+            sleep 2
             sh 'echo "Security Tests Finished"'
             
           },
           "Unit Tests": {
-            sleep 10
+            sleep 1
             sh 'echo "Unit Tests Finished"'
             
+          }
+        )
+      }
+    }
+    stage('Push to S3') {
+      steps {
+        parallel(
+          "Push to S3": {
+            sh 'echo "Pushing ${gitCommit} to S3" '
+            
           },
-          "Goodbye": {
-            sleep 41
-            sh 'echo "Goodbye"'
+          "Push to S3 Groovy": {
+            script {
+              println "Pushing ${gitCommit} to S3"
+            }
+            
             
           }
         )
