@@ -28,7 +28,7 @@ pipeline {
         parallel(
           "Package": {
             sleep 3
-            sh '''echo ${env.GIT_COMMIT}
+            sh '''
 echo $(date) > gigantic_binary.txt
 echo "Packaging finished"'''
             archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true, onlyIfSuccessful: true)
@@ -51,7 +51,7 @@ echo "Packaging finished"'''
       steps {
         parallel(
           "Push to S3": {
-            sh 'echo "Pushing ${gitCommit} to S3" '
+            sh 'echo "Pushing git commit to S3" '
             
           },
           "Push to S3 Groovy": {
