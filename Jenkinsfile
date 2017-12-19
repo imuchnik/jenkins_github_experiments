@@ -15,9 +15,9 @@ pipeline {
               shortCommit = gitCommit.take(6)
               println gitCommit
               println shortCommit
-              env.GIT_COMMIT = gitCommit
+
             }
-            
+            withEnv(['env.GIT_COMMIT = gitCommit'])
             
           }
         )
@@ -29,8 +29,8 @@ pipeline {
           "Package": {
             sleep 3
             sh '''
-echo $(date) > gigantic_binary.txt
-echo "Packaging finished"'''
+                echo $(date) > gigantic_binary.txt
+                echo "Packaging finished"'''
             archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true, onlyIfSuccessful: true)
             
           },
