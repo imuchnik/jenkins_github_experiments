@@ -10,12 +10,7 @@ pipeline {
           },
           "Git commit": {
             script {
-              gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-              // short SHA, possibly better for chat notifications, etc.
-              shortCommit = gitCommit.take(6)
-              println gitCommit
-              println shortCommit
-
+              gitCommit = "foo"
             }
             withEnv(['env.GIT_COMMIT = gitCommit'])
             
