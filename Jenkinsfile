@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('hello') {
       steps {
-        parallel(
+
           "hello": {
             echo 'Hello World'
 
@@ -14,8 +14,8 @@ pipeline {
               env.GIT_COMMIT = gitCommit
               println gitCommit
             }
-          }
-        ),
+          },
+
          "test": {
                       echo sh(returnStdout: true, script: 'env')
                       sh 'printenv',
