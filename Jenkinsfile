@@ -16,5 +16,10 @@ pipeline {
         }
       }
     }
+    stage('million'){
+        steps{
+            echo sh(returnStdout: true, script: "${env.GIT_COMMIT}")
+        }
+     }
   }
 }
