@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('hello') {
       steps {
-        echo 'Hello World'
         script {
             gitCommit = "foo"
             env.GIT_COMMIT = gitCommit
@@ -19,6 +18,7 @@ pipeline {
     stage('million'){
         steps{
             echo sh(returnStdout: true, script: "echo ${env.GIT_COMMIT}")
+            echo gitCommit
         }
      }
   }
