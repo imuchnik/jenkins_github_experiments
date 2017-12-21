@@ -2,23 +2,20 @@ pipeline {
   agent any
   stages {
     stage('hello') {
-       parallel{
-          steps {
-               "hello": {
-                    echo 'Hello World'
-                },
+      steps {
+        parallel(
+          "hello": {
+            echo 'Hello World'
 
-               "Git commit": {
-                    script {
-                       def gitCommit = "foo"
-                    }
-
-               withEnv(['env.GIT_COMMIT = gitCommit'])
-
-              }
+          },
+          "Git commit": {
+            script {
+              gitCommit = "foo"
+              env.GIT_COMMIT = gitCommit
             }
           }
-        }
+        )
+      }
     }
     stage('Test and Package') {
       steps {
@@ -26,8 +23,8 @@ pipeline {
           "Package": {
             sleep 3
             sh '''
-                echo $(date) > gigantic_binary.txt
-                echo "Packaging finished"'''
+echo $(date) > gigantic_binary.txt
+echo "Packaging finished"'''
             archiveArtifacts(artifacts: 'gigantic*.*', fingerprint: true, onlyIfSuccessful: true)
             
           },
@@ -53,10 +50,8 @@ pipeline {
           },
           "Push to S3 Groovy": {
             script {
-              println "Pushing ${gitCommit} to S3"
+              println "Pushing ${env.gitCommit} to S3"
             }
-            
-            
           }
         )
       }
