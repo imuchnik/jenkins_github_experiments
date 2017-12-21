@@ -2,21 +2,23 @@ pipeline {
   agent any
   stages {
     stage('hello') {
-      steps {
-        parallel(
-          "hello": {
-            echo 'Hello World'
-            
-          },
-          "Git commit": {
-            script {
-              gitCommit = "foo"
+       parallel{
+          steps {
+               "hello": {
+                    echo 'Hello World'
+                },
+
+               "Git commit": {
+                    script {
+                       def gitCommit = "foo"
+                    }
+
+               withEnv(['env.GIT_COMMIT = gitCommit'])
+
+              }
             }
-            withEnv(['env.GIT_COMMIT = gitCommit'])
-            
           }
-        )
-      }
+        }
     }
     stage('Test and Package') {
       steps {
