@@ -15,9 +15,9 @@ pipeline {
               println gitCommit
             }
           },
-          sh (printenv),
+          sh 'printenv',
           withEnv(['GIT_COMMIT="foo:']),
-          echo sh(returnStdout: true, script: 'env')
+          echo "sh(returnStdout: true, script: 'env')"
         )
       }
     }
