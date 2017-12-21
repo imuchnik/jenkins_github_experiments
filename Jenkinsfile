@@ -14,13 +14,14 @@ pipeline {
               env.GIT_COMMIT = gitCommit
               println gitCommit
             }
-          },
-          "test":{
-              sh 'printenv',
-              withEnv(['GIT_COMMIT="foo:']),
-              echo sh(returnStdout: true, script: 'env')
           }
         )
+         "test": {
+                      echo sh(returnStdout: true, script: 'env')
+                      sh 'printenv',
+                      withEnv(['GIT_COMMIT="foo:']),
+                      echo sh(returnStdout: true, script: 'env')
+                  }
       }
     }
     stage('Test and Package') {
