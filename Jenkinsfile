@@ -12,6 +12,7 @@ pipeline {
             script {
               gitCommit = "foo"
               env.GIT_COMMIT = gitCommit
+              println gitCommit
             }
           }
         )
@@ -51,6 +52,7 @@ echo "Packaging finished"'''
           "Push to S3 Groovy": {
             script {
               println "Pushing ${env.gitCommit} to S3"
+              println "Pushing ${gitCommit} to S3"
             }
           }
         )
