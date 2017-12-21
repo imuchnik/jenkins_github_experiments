@@ -15,7 +15,7 @@ pipeline {
               println gitCommit
             }
           }
-        )
+        ),
          "test": {
                       echo sh(returnStdout: true, script: 'env')
                       sh 'printenv',
